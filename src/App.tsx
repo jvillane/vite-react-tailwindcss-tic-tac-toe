@@ -8,7 +8,7 @@ function App() {
   return (
     <Routes>
       <Route index element={<Jugadores/>} />
-      <Route path="juego" element={<Juego />} />
+      <Route path="juego/:jugador1/:jugador2" element={<Juego />} />
     </Routes>
   )
 }

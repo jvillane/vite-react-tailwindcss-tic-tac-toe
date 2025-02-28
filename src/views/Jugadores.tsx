@@ -1,8 +1,15 @@
 
-import { NavLink } from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 
 function Jugadores() {
-    return (
+  let navigate = useNavigate();
+  const [jugador1, setJugador1] = useState("");
+  const [jugador2, setJugador2] = useState("");
+
+  const activo = jugador1.length > 1 && jugador2.length > 1
+
+  return (
       <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
         <div
           aria-hidden="true"
@@ -28,11 +35,11 @@ function Jugadores() {
               </label>
               <div className="mt-2.5">
                 <input
-                  id="company"
-                  name="company"
+                  id="jugador1"
+                  name="jugador1"
                   type="text"
-                  autoComplete="organization"
                   className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  onChange={(e) => {setJugador1(e.target.value)}}
                 />
               </div>
             </div>
@@ -42,22 +49,24 @@ function Jugadores() {
               </label>
               <div className="mt-2.5">
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  id="jugador2"
+                  name="jugador2"
+                  type="text"
                   className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                  onChange={(e) => {setJugador2(e.target.value)}}
                 />
               </div>
             </div>
           </div>
           <div className="mt-10">
-            <NavLink
-              to="/juego"
-              className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            <a
+              className={`block w-full rounded-md px-3.5 py-2.5 text-center text-sm font-semibold shadow-sm ${ activo ? 'bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' : 'bg-gray-200 text-gray-400' }`}
+              onClick={() => {
+                if(activo) navigate(`/juego/${jugador1}/${jugador2}`);
+              }}
             >
               ¡Jugar!
-            </NavLink>
+            </a>
           </div>
         </form>
       </div>
